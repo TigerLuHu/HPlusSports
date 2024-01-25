@@ -1,0 +1,15 @@
+.vs
+.vscode
+node_modules
+taskdef.json
+version.txt
+runtime
+data
+bin
+obj
+*.user
+.sonarqube
+out
+.Dockerfile.swp
+*.http
+.env
