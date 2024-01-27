@@ -5,42 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HPlusSportsWeb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HPlusSportsWeb.styles.css" asp-append-version="true" />
+    <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"-->
+    <link rel="stylesheet" href="~/css/style.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">HPlusSportsWeb</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    <header id="home" class="header">
+        <nav class="nav" role="navigation">
+            <div class="container nav-elements">
+                <div class="branding">
+                    <a asp-area="" asp-page="/Index"><img src="~/images/hpluslogo.svg" alt="Logo - H Plus Sports"></a>
+                </div><!-- branding -->
+                <ul class="navbar">
+                    <li><a asp-area="" asp-page="/Index">Home</a></li>
+                    <li><a asp-area="" asp-page="/Home/History">History</a></li>
+                    <li><a asp-area="" asp-page="/Product/Index">Products</a></li>
+                    <li><a asp-area="" asp-page="/Home/Guarantee">Guarantee</a></li>
+                    <li><a asp-area="" asp-page="/Home/People">People</a></li>
+                    <li><a asp-area="" asp-page="/Cart/Index"><span class="fa fa-shopping-cart" aria-role="button" aria-label="Cart"></span></a></li>
+                </ul>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    @RenderBody()
+
+    <footer class="footer">
+        <header class="imageheader"></header>
         <div class="container">
-            &copy; 2024 - HPlusSportsWeb - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+            <nav class="nav" role="navigation">
+                <div class="container nav-elements">
+                    <div class="branding">
+                        <a asp-area="" asp-page="/Index"><img src="~/images/hpluslogo.svg" alt="Logo - H Plus Sports"></a>
+                        <p class="address">
+                            100 Main Street<br>
+                            Seattle, WA 98144
+                        </p>
+                    </div>
+
+                </div>
+            </nav>
+            <p class="legal">H+ Sport is a fictitious brand created by lynda.com solely for the purpose of training. All products and people associated with H+ Sport are also fictitious. Any resemblance to real brands, products, or people is purely coincidental. Information provided about the product is also fictitious and should not be construed to be representative of actual products on the market in a similar product category.</p>
+        </div><!-- container -->
+    </footer><!-- footer -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
