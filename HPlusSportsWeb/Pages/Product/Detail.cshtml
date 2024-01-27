@@ -1,0 +1,25 @@
+﻿@page
+@model DetailModel
+
+@{
+    ViewData["Title"] = Model.Product.Name;
+}
+
+
+    <div class="product-detail">
+    <img class="product-image" src="@Model.Product.Image" alt="@Model.Product.ImageTitle" />
+        <div>
+        <h2 class="product-name">@Html.DisplayFor(model => model.Product.Name)</h2>
+
+        <p class="product-description">@Html.DisplayFor(model => model.Product.Description)</p>
+
+            <div class="product-button">
+            <button class="btn-primary" onclick="addToCart(@Model.Product.ID, '@Model.Product.Name' );">Add to cart</button>
+            </div>
+
+        </div>
+    </div>
+
+    <a class="product-link" asp-action="Index">Back to Products</a>
+
+
