@@ -12,7 +12,7 @@
     <ul class="product-list">
         @foreach (var item in Model.Products) {
             <li class="product-item">
-                <a asp-action="detail" asp-route-id="@item.ID">
+                <a asp-asp-page="./Detail" asp-route-id="@item.ID">
                     <img class="product-image" src="@item.Image" alt="@item.ImageTitle">
                     <h2 class="product-name">@item.Name</h2>
                 </a>

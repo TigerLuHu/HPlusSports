@@ -1,7 +1,13 @@
+using HPlusSportsWeb;
+
+using System.Net;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+ConfigServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
@@ -23,3 +29,16 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+
+void ConfigServices(IServiceCollection services, IConfiguration config)
+{
+    var apiAddress = config[Constants.KEY_API_BASE_URI];
+    var apiBaseUri = new Uri(apiAddress);
+    HttpClient httpClient = new HttpClient
+    {
+        BaseAddress = apiBaseUri,
+        Timeout = new TimeSpan(0,0,60)
+    };
+    services.AddSingleton(httpClient);
+}
