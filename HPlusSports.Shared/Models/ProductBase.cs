@@ -1,6 +1,16 @@
-﻿namespace HPlusSports.Shared.Models
+﻿using HPlusSports.Shared.Cosmos.Attributes;
+
+using JsonSubTypes;
+
+using Newtonsoft.Json;
+
+namespace HPlusSports.Shared.Models
 {
-    public class ProductBase : EntityBase
+    [CosmosContainerName("Product")]
+    [JsonConverter(typeof(JsonSubtypes), nameof(Category))]
+    [JsonSubtypes.KnownSubType(typeof(ClothingProduct), Categories.Clothing)]
+    [JsonSubtypes.KnownSubType(typeof(NutritionalProduct), Categories.Nutritional)]
+    public abstract class ProductBase : EntityBase
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -9,6 +19,6 @@
 
         public string Image { get; set; }
 
-        public string Category { get; set; }
+        public abstract string Category { get; }
     }
 }
