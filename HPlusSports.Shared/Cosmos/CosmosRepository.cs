@@ -10,37 +10,37 @@ namespace HPlusSports.Shared.Cosmos
     {
         private readonly Container _container;
 
-        public CosmosRepository(Container container) 
+        public CosmosRepository(Container container)
         {
             _container = container;
         }
 
-        public async Task<T> CreateAsync(T entity, string partion)
+        public async Task<T> CreateAsync(T entity, string partition)
         {
-            var response = await _container.CreateItemAsync(entity, string.IsNullOrEmpty(partion) ? PartitionKey.None : new PartitionKey(partion));
+            var response = await _container.CreateItemAsync(entity, GetPartitionKey(partition));
             return response.Resource;
         }
 
-        public async Task<T> UpdateAsync(T entity, string partion)
+        public async Task<T> UpdateAsync(T entity)
         {
-            var response = await _container.ReplaceItemAsync(entity, entity.Id, string.IsNullOrEmpty(partion) ? PartitionKey.None : new PartitionKey(partion));
+            var response = await _container.ReplaceItemAsync(entity, entity.Id);
             return response.Resource;
         }
 
-        public async Task<T> FindByIdAsync(string id, string partion)
+        public async Task<T> FindByIdAsync(string id, string partition)
         {
-            var response = await _container.ReadItemAsync<T>(id, string.IsNullOrEmpty(partion) ? PartitionKey.None : new PartitionKey(partion));
+            var response = await _container.ReadItemAsync<T>(id, GetPartitionKey(partition));
             return response.Resource;
         }
 
-        public async Task DeleteAsync(T entity, string partion)
+        public async Task DeleteAsync(T entity, string partition)
         {
-            await _container.DeleteItemAsync<T>(entity.Id, string.IsNullOrEmpty(partion) ? PartitionKey.None : new PartitionKey(partion));
+            await _container.DeleteItemAsync<T>(entity.Id, GetPartitionKey(partition));
         }
 
-        public async Task<List<T>> FindAsync(Func<T, bool> predict)
+        public async Task<List<T>> ListAllAsync()
         {
-            using (var iterator = _container.GetItemLinqQueryable<T>().Where(t => predict(t)).ToFeedIterator())
+            using (var iterator = _container.GetItemLinqQueryable<T>().ToFeedIterator())
             {
                 var results = new List<T>();
 
@@ -54,6 +54,11 @@ namespace HPlusSports.Shared.Cosmos
 
                 return results;
             }
+        }
+
+        private PartitionKey GetPartitionKey(string partition)
+        {
+            return string.IsNullOrEmpty(partition) ? PartitionKey.None : new PartitionKey(partition);
         }
     }
 }

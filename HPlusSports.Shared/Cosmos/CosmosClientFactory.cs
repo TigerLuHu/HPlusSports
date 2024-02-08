@@ -23,7 +23,11 @@ namespace HPlusSports.Shared.Cosmos
 
         public CosmosClient GetCosmosClient(CosmosDBOptions options)
         {
-            return _clientsCache.GetOrAdd(options.Endpoint, new CosmosClient(options.Endpoint, options.Key));
+            return _clientsCache.GetOrAdd(
+                options.Endpoint, 
+                new CosmosClient(
+                    options.Endpoint, 
+                    options.Key));
         }
     }
 }

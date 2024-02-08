@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using HPlusSports.Shared.Cosmos.Attributes;
+
+using System.Collections.Concurrent;
 
 namespace HPlusSports.Shared.Cosmos
 {
@@ -9,20 +11,22 @@ namespace HPlusSports.Shared.Cosmos
         public string Resolve<T>()
         {
             var type = typeof(T);
-            if (_containerNameCache.TryGetValue(type, out string name))
+
+            if (_containerNameCache.TryGetValue(type, out string containerName))
             {
-                return name;
+                return containerName;
             }
 
-            var containerName = ResolveContainerName(type);
+            containerName = ResolveContainerName(type);
             _containerNameCache.TryAdd(type, containerName);
 
             return containerName;
         }
 
-        private string ResolveContainerName(Type type)
+        protected virtual string ResolveContainerName(Type type)
         {
-            return type.Name;
+            var cosmosContainerNameAttribute = type.GetCustomAttributes(typeof(CosmosContainerNameAttribute), true).FirstOrDefault() as CosmosContainerNameAttribute;
+            return cosmosContainerNameAttribute?.ContainerName ?? type.Name;
         }
     }
 }
