@@ -1,6 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using Newtonsoft.Json;
 
@@ -15,12 +13,12 @@ namespace HPlusSportsWeb.Pages.Product
             _httpClient = httpClient;
         }
 
-        public List<HPlusSports.Shared.Models.Product> Products { get; set; } = new List<HPlusSports.Shared.Models.Product>();
+        public List<HPlusSports.Shared.Models.ProductBase> Products { get; set; } = new List<HPlusSports.Shared.Models.ProductBase>();
 
         public async Task OnGetAsync()
         {
             var response = await _httpClient.GetStringAsync("product");
-            Products = JsonConvert.DeserializeObject<List<HPlusSports.Shared.Models.Product>>(response);
+            Products = JsonConvert.DeserializeObject<List<HPlusSports.Shared.Models.ProductBase>>(response);
         }
     }
 }

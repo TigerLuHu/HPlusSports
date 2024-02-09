@@ -13,12 +13,12 @@ namespace HPlusSportsWeb.Pages.Product
             _httpClient = httpClient;
         }
 
-        public HPlusSports.Shared.Models.Product Product { get; set; }
+        public HPlusSports.Shared.Models.ProductBase Product { get; set; }
 
         public async Task OnGetAsync(int id)
         {
             var response = await _httpClient.GetStringAsync($"product/{id}");
-            Product = JsonConvert.DeserializeObject<HPlusSports.Shared.Models.Product>(response);
+            Product = JsonConvert.DeserializeObject<HPlusSports.Shared.Models.ProductBase>(response);
         }
     }
 }
