@@ -1,0 +1,11 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Create New Product";
+}
+
+<h2>Add a new product</h2>
+<p class="text-info text-center">@Model.ProgressMessage</p>
+
+<partial name="CreateClothing_Partial" for="Cloth"></partial>
+<partial name="CreateNutritional_Partial" for="Nutrition"></partial>
