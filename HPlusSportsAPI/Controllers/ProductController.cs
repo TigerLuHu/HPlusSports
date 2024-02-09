@@ -31,8 +31,13 @@ namespace HPlusSportsAPI.Controllers
         }
 
         [HttpPost("clothing")]
-        public async Task<JsonResult> AddClothing(ClothingProduct cloth)
+        public async Task<JsonResult> AddClothing([FromBody]ClothingProduct cloth)
         {
+            if (string.IsNullOrWhiteSpace(cloth.Id))
+            {
+                cloth.Id = Guid.NewGuid().ToString();
+            }
+
             var newCloth = await _productService.AddProductAsync(cloth);
             return new JsonResult(newCloth);
         }
@@ -40,6 +45,11 @@ namespace HPlusSportsAPI.Controllers
         [HttpPost("nutrition")]
         public async Task<JsonResult> AddNutritional(NutritionalProduct nutrition)
         {
+            if (string.IsNullOrWhiteSpace(nutrition.Id))
+            {
+                nutrition.Id = Guid.NewGuid().ToString();
+            }
+
             var newNutrition = await _productService.AddProductAsync(nutrition);
             return new JsonResult(newNutrition);
         }

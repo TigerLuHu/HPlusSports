@@ -1,8 +1,12 @@
-﻿namespace HPlusSports.Shared.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace HPlusSports.Shared.Models
 {
     public class ClothingProduct : ProductBase
     {
-        public string[] Sizes { get; set; }
+        [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
+        public SizeType[] Sizes { get; set; }
         public override string Category { get; } = Categories.Clothing;
     }
 }

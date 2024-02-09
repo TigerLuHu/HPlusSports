@@ -64,11 +64,10 @@ void ConfigCosmosDBService(IServiceCollection services, IConfiguration configura
     var cosmosDBConfig = configuration.GetSection(Constants.KEY_DB_CONFIG);
     services.Configure<CosmosDBOptions>(cosmosDBConfig);
     services.AddCosmosService();
-
-    services.TryAddScoped<IProductRepository<ProductBase>, ProductRepository<ProductBase>>();
 }
 
 void ConfigDomainService(IServiceCollection services, IConfiguration configuration)
 {
     services.AddScoped<IProductService<ProductBase>, ProductService<ProductBase>>();
+    services.TryAddScoped<IProductRepository<ProductBase>, ProductRepository<ProductBase>>();
 }
