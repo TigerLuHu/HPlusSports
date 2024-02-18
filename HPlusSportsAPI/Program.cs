@@ -1,3 +1,5 @@
+using HPlusSports.Shared.Blob;
+using HPlusSports.Shared.Blob.Extensions;
 using HPlusSports.Shared.Cosmos;
 using HPlusSports.Shared.Cosmos.Extensions;
 using HPlusSports.Shared.Models;
@@ -56,18 +58,29 @@ app.Run();
 void ConfigServices(IServiceCollection services, IConfiguration configuration)
 {
     ConfigCosmosDBService(services, configuration);
+    ConfigBlobService(services, configuration);
     ConfigDomainService(services, configuration);
 }
 
 void ConfigCosmosDBService(IServiceCollection services, IConfiguration configuration)
 {
-    var cosmosDBConfig = configuration.GetSection(Constants.KEY_DB_CONFIG);
+    var cosmosDBConfig = configuration.GetSection(Constants.KEY_COSMOSDB);
     services.Configure<CosmosDBOptions>(cosmosDBConfig);
     services.AddCosmosService();
+}
+
+void ConfigBlobService(IServiceCollection services, IConfiguration configuration)
+{
+    var blobConfig = configuration.GetSection(Constants.KEY_AZURE_STORAGE);
+    services.Configure<BlobOptions>(blobConfig);
+    services.AddBlobServices();
 }
 
 void ConfigDomainService(IServiceCollection services, IConfiguration configuration)
 {
     services.AddScoped<IProductService<ProductBase>, ProductService<ProductBase>>();
     services.TryAddScoped<IProductRepository<ProductBase>, ProductRepository<ProductBase>>();
+    var imageConfig = configuration.GetSection(Constants.KEY_Image);
+    services.Configure<ImageOptions>(imageConfig);
+    services.AddScoped<IImageService, ImageService>();
 }

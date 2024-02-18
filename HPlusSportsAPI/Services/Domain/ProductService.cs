@@ -8,10 +8,12 @@ namespace HPlusSportsAPI.Services.Domain
         where T : ProductBase
     {
         private readonly IProductRepository<T> _productRepository;
+        private readonly IImageService _imageService;
 
-        public ProductService(IProductRepository<T> repository) 
+        public ProductService(IProductRepository<T> repository, IImageService imageService) 
         {
             _productRepository = repository;
+            _imageService = imageService;
         }
 
         public Task<T> AddProductAsync(T product)
@@ -19,9 +21,15 @@ namespace HPlusSportsAPI.Services.Domain
             return _productRepository.AddProductAsync(product);
         }
 
-        public Task AddProductImage(string id, Stream imageStream)
+        public async Task<T> AddProductImage(string id, Stream imageStream)
         {
-            throw new NotImplementedException();
+            var imageName = $"{id}.jpg";
+            var imageUri = await _imageService.UploadImageAsync(imageName, imageStream);
+            var product = await GetProductAsync(id);
+            product.Image = imageUri;
+            product.ImageTitle = imageName;
+
+            return await _productRepository.UpdateProductAsync(product);
         }
 
         public Task<T> GetProductAsync(string id)

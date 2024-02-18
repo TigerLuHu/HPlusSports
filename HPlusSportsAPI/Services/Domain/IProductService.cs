@@ -9,7 +9,7 @@ namespace HPlusSportsAPI.Services.Domain
 
         Task<T> GetProductAsync(string id);
 
-        Task AddProductImage(string id, Stream imageStream);
+        Task<T> AddProductImage(string id, Stream imageStream);
 
         Task<T> AddProductAsync(T product);
     }

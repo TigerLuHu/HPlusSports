@@ -2,6 +2,8 @@
 {
     public static class Constants
     {
-        public static readonly string KEY_DB_CONFIG = "CosmosDB";
+        public static readonly string KEY_COSMOSDB = "CosmosDB";
+        public static readonly string KEY_AZURE_STORAGE = "AzureStorage";
+        public static readonly string KEY_Image = "Image";
     }
 }

@@ -147,6 +147,11 @@ namespace HPlusSportsAPI.Services.Ropository
         {
             throw new NotImplementedException();
         }
+
+        public Task<T> UpdateProductAsync(T product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
  

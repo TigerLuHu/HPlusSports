@@ -27,5 +27,10 @@ namespace HPlusSportsAPI.Services.Ropository
         {
             return _cosmosRepository.ListAllAsync();
         }
+
+        public Task<T> UpdateProductAsync(T product)
+        {
+            return _cosmosRepository.UpdateAsync(product);
+        }
     }
 }

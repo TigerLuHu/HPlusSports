@@ -6,5 +6,7 @@ namespace HPlusSportsAPI.Services.Ropository
         where T : ProductBase
     {
         Task<T> AddProductAsync(T product);
+
+        Task<T> UpdateProductAsync(T product);
     }
 }
