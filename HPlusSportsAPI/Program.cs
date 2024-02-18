@@ -3,6 +3,10 @@ using HPlusSports.Shared.Blob.Extensions;
 using HPlusSports.Shared.Cosmos;
 using HPlusSports.Shared.Cosmos.Extensions;
 using HPlusSports.Shared.Models;
+using HPlusSports.Shared.Queue;
+using HPlusSports.Shared.Queue.Extensions;
+using HPlusSports.Shared.Table;
+using HPlusSports.Shared.Table.Extensions;
 
 using HPlusSportsAPI;
 using HPlusSportsAPI.Services.Domain;
@@ -59,21 +63,41 @@ void ConfigServices(IServiceCollection services, IConfiguration configuration)
 {
     ConfigCosmosDBService(services, configuration);
     ConfigBlobService(services, configuration);
+    ConfigAzureQueueService(services, configuration);
+    ConfigAzureTableService(services, configuration);
     ConfigDomainService(services, configuration);
 }
 
 void ConfigCosmosDBService(IServiceCollection services, IConfiguration configuration)
 {
     var cosmosDBConfig = configuration.GetSection(Constants.KEY_COSMOSDB);
-    services.Configure<CosmosDBOptions>(cosmosDBConfig);
-    services.AddCosmosService();
+    services
+        .Configure<CosmosDBOptions>(cosmosDBConfig)
+        .AddCosmosService();
 }
 
 void ConfigBlobService(IServiceCollection services, IConfiguration configuration)
 {
-    var blobConfig = configuration.GetSection(Constants.KEY_AZURE_STORAGE);
-    services.Configure<BlobOptions>(blobConfig);
-    services.AddBlobServices();
+    var azureStorageConfig = configuration.GetSection(Constants.KEY_AZURE_STORAGE);
+    services
+        .Configure<BlobOptions>(azureStorageConfig)
+        .AddBlobServices();
+}
+
+void ConfigAzureQueueService(IServiceCollection services, IConfiguration configuration)
+{
+    var azureStorageConfig = configuration.GetSection(Constants.KEY_AZURE_STORAGE);
+    services
+        .Configure<AzureQueueOptions>(azureStorageConfig)
+        .AddAzureQueueServices();
+}
+
+void ConfigAzureTableService(IServiceCollection services, IConfiguration configuration)
+{
+    var azureStorageConfig = configuration.GetSection(Constants.KEY_AZURE_STORAGE);
+    services
+        .Configure<AzureTableOptions>(azureStorageConfig)
+        .AddAzureTableServices();
 }
 
 void ConfigDomainService(IServiceCollection services, IConfiguration configuration)
