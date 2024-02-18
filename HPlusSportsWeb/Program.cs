@@ -8,6 +8,13 @@ builder.Services
     .AddMvcOptions(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
     .AddNewtonsoftJson(options => options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore);
 
+builder.Services
+    .AddSession(options =>
+    {
+        options.IdleTimeout = TimeSpan.FromMinutes(30);
+    })
+    .AddMemoryCache();
+
 ConfigServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
@@ -22,6 +29,8 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSession();
 
 app.UseRouting();
 
