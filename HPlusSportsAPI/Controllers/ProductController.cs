@@ -1,4 +1,5 @@
 using HPlusSports.Shared.Models;
+
 using HPlusSportsAPI.Services.Domain;
 
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,30 @@ namespace HPlusSportsAPI.Controllers
 
             var newNutrition = await _productService.AddProductAsync(nutrition);
             return new JsonResult(newNutrition);
+        }
+
+        [HttpPut("image/{id}")]
+        public async Task<IActionResult> AddImage(IFormFile imageFile)
+        {
+            string id = (string)RouteData.Values["id"];
+
+            if(!Request.HasFormContentType)
+            {
+                return new UnsupportedMediaTypeResult();
+            }
+
+            using (var imageStream = imageFile.OpenReadStream())
+            {
+                try
+                {
+                    var product = await _productService.AddProductImage(id, imageStream);
+                    return new JsonResult(product);
+                }
+                catch
+                {
+                    throw;
+                }
+            }
         }
     }
 }
