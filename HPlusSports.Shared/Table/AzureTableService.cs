@@ -14,7 +14,7 @@ namespace HPlusSports.Shared.Table
         }
 
         // CAUTION: This shouldn't be used in real product
-        public async Task<List<T>> ListAll<T>() where T : class, ITableEntity
+        public async Task<List<T>> ListAllAsync<T>() where T : class, ITableEntity
         {
             var resultList = new List<T>();
 
@@ -26,6 +26,12 @@ namespace HPlusSports.Shared.Table
             }
 
             return resultList;
+        }
+
+        public async Task<T> FindAsync<T>(string partitionkey, string id) where T : class, ITableEntity
+        {
+            var tableClient = _factory.GetTableClient(_resolver.Resolve<T>());
+            return await tableClient.GetEntityAsync<T>(partitionkey, id);
         }
     }
 }
