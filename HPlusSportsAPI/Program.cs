@@ -107,4 +107,5 @@ void ConfigDomainService(IServiceCollection services, IConfiguration configurati
     var imageConfig = configuration.GetSection(Constants.KEY_Image);
     services.Configure<ImageOptions>(imageConfig);
     services.AddScoped<IImageService, ImageService>();
+    services.AddScoped<IOrderService, OrderService>();
 }
