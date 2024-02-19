@@ -20,9 +20,9 @@ namespace HPlusSportsAPI.Services.Domain
             await _queueService.SendMessageAsync(order);
         }
 
-        public async Task<T> GetOrderAsync<T>(string id) where T : OrderHistoryEntity
+        public async Task<T> GetOrderAsync<T>(string id, string category) where T : OrderHistoryEntity
         {
-            return await _tableService.FindAsync<T>(id, id);
+            return await _tableService.FindAsync<T>(category, id);
         }
 
         public async Task<List<T>> GetOrdersAsync<T>() where T : OrderHistoryEntity

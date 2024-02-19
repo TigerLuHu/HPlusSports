@@ -8,6 +8,6 @@ namespace HPlusSportsAPI.Services.Domain
 
         Task<List<T>> GetOrdersAsync<T>() where T : OrderHistoryEntity;
 
-        Task<T> GetOrderAsync<T>(string id) where T : OrderHistoryEntity;
+        Task<T> GetOrderAsync<T>(string id, string category) where T : OrderHistoryEntity;
     }
 }

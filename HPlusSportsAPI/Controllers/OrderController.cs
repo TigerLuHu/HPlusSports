@@ -24,9 +24,9 @@ namespace HPlusSportsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<JsonResult> Get(string id)
+        public async Task<JsonResult> Get(string id, [FromQuery] string category)
         {
-            var order = await _orderService.GetOrderAsync<OrderHistoryEntity>(id);
+            var order = await _orderService.GetOrderAsync<OrderHistoryEntity>(id, category);
             return new JsonResult(order);
         }
 
