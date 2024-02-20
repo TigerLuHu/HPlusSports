@@ -13,6 +13,12 @@ namespace HPlusSports.Shared.Table
             _resolver = resolver;
         }
 
+        public async Task CreateAsync<T>(T entity) where T : class, ITableEntity
+        {
+            var tableClient = _factory.GetTableClient(_resolver.Resolve<T>());
+            await tableClient.AddEntityAsync(entity);
+        }
+
         // CAUTION: This shouldn't be used in real product
         public async Task<List<T>> ListAllAsync<T>() where T : class, ITableEntity
         {
