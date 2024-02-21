@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace HPlusSports.Functions.Models
+namespace HPlusSports.Functions.InProcess.Models
 {
     public abstract class EntityBase
     {

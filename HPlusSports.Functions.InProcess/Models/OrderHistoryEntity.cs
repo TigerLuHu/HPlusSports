@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HPlusSports.Functions.Models
+namespace HPlusSports.Functions.InProcess.Models
 {
     public class OrderHistoryEntity : OrderItem
     {
