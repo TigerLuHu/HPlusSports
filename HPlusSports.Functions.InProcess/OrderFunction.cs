@@ -18,7 +18,6 @@ namespace HPlusSports.Functions.InProcess
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
-            log.LogInformation(Environment.GetEnvironmentVariable("AzureWebJobsStorage"));
 
             try
             {
