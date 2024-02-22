@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Cart";
 }
+@Html.AntiForgeryToken()
 
 <section class="cart default">
     <h2>Your items</h2>
@@ -22,23 +23,24 @@
 
     if (cartItems) {
         for (var i = 0; i < cartItems.length; i++) {
-            $("#cartList").append("<li>" + cartItems[i].name + "</li>");
-        }
-        
+            $("#cartList").append("<li>" + cartItems[i].name + ":  " + cartItems[i].quantity + "</li>");
+        }        
     }
 
-
-     function submitOrder() {
-         var cartItems = getCartItems();
-         var order = { "Items": cartItems };
-         $.post(window.location, order, function () {
-             clearCart();
-             window.location.href = "/cart/OrderComplete";
-         });
-
-        
+    function submitOrder() {
+        var cartItems = getCartItems();
+        var order = { "Items": cartItems };
+        $.ajax({
+            type: "POST",
+            headers: { "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val() },
+            url: "?handler=SubmitOrder",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(order),
+            success: function () {
+                clearCart();
+                window.location.href = "/Cart/OrderComplete";
+            },
+        });
     }
 </script>
-
 }
-

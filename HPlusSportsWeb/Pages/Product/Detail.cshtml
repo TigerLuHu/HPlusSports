@@ -1,25 +1,44 @@
 ﻿@page
+@using HPlusSports.Shared.Models
 @model DetailModel
 
 @{
     ViewData["Title"] = Model.Product.Name;
 }
 
-
+<section class="default">
     <div class="product-detail">
-    <img class="product-image" src="@Model.Product.Image" alt="@Model.Product.ImageTitle" />
+        <img class="product-image" src="@Model.Product.Image" alt="@Model.Product.ImageTitle" />
         <div>
-        <h2 class="product-name">@Html.DisplayFor(model => model.Product.Name)</h2>
-
-        <p class="product-description">@Html.DisplayFor(model => model.Product.Description)</p>
-
-            <div class="product-button">
-            <button class="btn-primary" onclick="addToCart(@Model.Product.Id, '@Model.Product.Name' );">Add to cart</button>
+            <h2 class="product-name">@Html.DisplayFor(model => model.Product.Name)</h2>
+    
+            <p class="product-description">@Html.DisplayFor(model => model.Product.Description)</p>
+    
+            <div class="product-size">
+                <form>
+                    @if (Model.Product.Category == Categories.Clothing)
+                    {
+                        @foreach (var size in (Model.Product as ClothingProduct).Sizes)
+                        {
+                            <label><input type="radio" name="size" value="@size.ToString()" />@size</label>
+                        }
+                    }
+                    else
+                    {
+                        <input type="hidden" name="size" value="" />
+                    }
+                    <div>
+                        <label class="control-label">Purchase quantity: </label>
+                        <input type="number" name="quantity" class="form-control" />
+                    </div>
+                </form>
             </div>
-
+    
+            <div class="product-button">
+                <button class="btn-primary" onclick="addToCart('@Model.Product.Id', '@Model.Product.Name', '@Model.Product.Category');">Add to cart</button>
+            </div>
         </div>
     </div>
-
+    
     <a class="product-link" asp-page="./Index">Back to Products</a>
-
-
+</section>
