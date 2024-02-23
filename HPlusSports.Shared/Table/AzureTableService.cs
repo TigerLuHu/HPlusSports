@@ -26,7 +26,7 @@ namespace HPlusSports.Shared.Table
 
             var tableClient = _factory.GetTableClient(_resolver.Resolve<T>());
             var pages = tableClient.QueryAsync((T _) => true);
-            await foreach (var page in pages.AsPages()) 
+            await foreach (var page in pages.AsPages())
             {
                 resultList.AddRange(page.Values);
             }

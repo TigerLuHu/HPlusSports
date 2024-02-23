@@ -6,8 +6,6 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
-using System.Net.Http.Json;
-
 namespace HPlusSports.Functions.Isolated
 {
     public class OrderFunction

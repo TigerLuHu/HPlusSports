@@ -24,7 +24,10 @@ namespace HPlusSports.Shared.Queue
         public async Task<string> SendMessageAsync<T>(T item, string queue = "")
         {
             var client = _factory.GetQueueClient(!string.IsNullOrEmpty(queue) ? queue : _resolver.Resolve<T>());
-            var response = await client.SendMessageAsync(JsonConvert.SerializeObject(item));
+            var response = await client.SendMessageAsync(JsonConvert.SerializeObject(
+                item, 
+                Formatting.None, 
+                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             return response.Value.MessageId;
         }
 

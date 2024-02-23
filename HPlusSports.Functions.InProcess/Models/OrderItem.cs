@@ -6,7 +6,7 @@
 
         public string Category { get; set; }
 
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         public string Size { get; set; }
     }
